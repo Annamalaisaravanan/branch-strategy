@@ -1,82 +1,13 @@
-name: CI/CD
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        enabled:
-          - true
-          - false
+  - name: ${{ parameters.Name }}
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
- 
-
-      - name: Build
-        if: matrix.enabled == 'true'
+      - name: ${{ parameters.Name }}
+        if: ${{ parameters.Enabled }}
         run: |
-          echo "Build Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
-
-  test:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        enabled:
-          - true
-          - false
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      
-
-      - name: Test
-        if: matrix.enabled == 'true'
-        run: |
-          echo "Test Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
-
-  acceptance:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        enabled:
-          - true
-          - false
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-     
-
-      - name: Acceptance
-        if: matrix.enabled == 'true'
-        run: |
-          echo "Acceptance Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
-
-  prod:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        enabled:
-          - true
-          - false
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-   
-
-      - name: Prod
-        if: matrix.enabled == 'true'
-        run: |
-          echo "Prod Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
+          # Add your stage-specific commands here
+          echo "${{ parameters.Name }} Job is running. Parameter Enabled - ${{ parameters.Enabled }}"
