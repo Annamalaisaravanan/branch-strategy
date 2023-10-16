@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - features
+      - releases
   pull_request:
     branches:
       - '*'
