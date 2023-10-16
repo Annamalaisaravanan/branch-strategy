@@ -1,7 +1,7 @@
 jobs:
-  - name: ${{ parameters.Name }}
-    runs-on: windows-latest
-
+  ${{ parameters.Name }}:
+  
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
