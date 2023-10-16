@@ -1,45 +1,91 @@
-parameters:
-  - name: Enabled
-    type: boolean
-    default: false
+name: CI/CD
 
-stages:
-  - stage: Build
-    displayName: 'Build Stage'
-    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-    
-    jobs:  
-      - job: Build
-        displayName: 'Build Job'
-        steps:
-            - powershell: Write-Host "Build Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+on:
+  push:
+    branches:
+      - main
 
-  - stage: Test
-    displayName: 'Test Stage'
-    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-    
-    jobs:  
-      - job: Test
-        displayName: 'Test Job'
-        steps:
-             - powershell: Write-Host "Test Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-  - stage: Acceptance
-    displayName: 'Acceptance Stage'
-    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-    
-    jobs:  
-      - job: Acceptance
-        displayName: 'Acceptance Job'
-        steps:
-            - powershell: Write-Host "Acceptance Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+    strategy:
+      matrix:
+        enabled:
+          - true
+          - false
 
-  - stage: Prod
-    displayName: 'Prod Stage'
-    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-    
-    jobs:  
-      - job: Prod
-        displayName: 'Prod Job'
-        steps:
-            - powershell: Write-Host "Prod Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v1
+
+      - name: Build
+        if: matrix.enabled == 'true'
+        run: |
+          echo "Build Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
+
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        enabled:
+          - true
+          - false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v1
+
+      - name: Test
+        if: matrix.enabled == 'true'
+        run: |
+          echo "Test Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
+
+  acceptance:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        enabled:
+          - true
+          - false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v1
+
+      - name: Acceptance
+        if: matrix.enabled == 'true'
+        run: |
+          echo "Acceptance Job is running. Parameter Enabled - '${{ matrix.enabled }}' "
+
+  prod:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        enabled:
+          - true
+          - false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v1
+
+      - name: Prod
+        if: matrix.enabled == 'true'
+        run: |
+          echo "Prod Job is running. Parameter Enabled - '${{ matrix.enabled }}' "

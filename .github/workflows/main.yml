@@ -1,31 +1,40 @@
-trigger:
-  branches:
-    exclude:
-      - 'main'
+name: CI/CD
 
-pr:
-- '*'
+on:
+  push:
+    branches:
+      - features
+  pull_request:
+    branches:
+      - '*'
 
-pool:
-  vmImage: 'windows-latest'
+jobs:
+  build:
+    runs-on: windows-latest
 
-stages:
-  - template: stage-template.yaml
-    parameters:
-      Name: Build
-      Enabled: True
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-  - template: stage-template.yaml
-    parameters:
-      Name: Test
-      Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/features') }}
+      - name: Build
+        run: |
+          # Add your build commands here
+          echo "Building..."
 
-  - template: stage-template.yaml
-    parameters:
-      Name: Acceptance
-      Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/releases') }}
+      - name: Test
+        if: startsWith(github.ref, 'refs/heads/features')
+        run: |
+          # Add your test commands here
+          echo "Testing..."
 
-  - template: stage-template.yaml
-    parameters:
-      Name: Production
-      Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/releases') }}
+      - name: Acceptance
+        if: startsWith(github.ref, 'refs/heads/releases')
+        run: |
+          # Add your acceptance testing commands here
+          echo "Acceptance testing..."
+
+      - name: Production
+        if: startsWith(github.ref, 'refs/heads/releases')
+        run: |
+          # Add your production deployment commands here
+          echo "Deploying to Production..."
