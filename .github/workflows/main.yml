@@ -11,14 +11,13 @@ on:
 jobs:
 
   Build:
-    uses: Annamalaisaravanan/test-repo/.github/workflows/stage-template.yml@main
+    uses: stage-template.yml
     with:
       Name: Build
       Enabled: true
 
   Test:
-    uses: Annamalaisaravanan/test-repo/.github/workflows/stage-template.yml@main
-    needs: Build
+    uses: stage-template.yml
     with:
       Name: Test
       Enabled: startsWith(github.ref, 'refs/heads/features')
