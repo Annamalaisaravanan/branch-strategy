@@ -10,13 +10,38 @@ on:
       - '*'
 
 jobs:
+
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+      gcloud_project: ${{ steps.setvars.outputs.gcloud_project }}
+      phase: ${{ steps.setvars.outputs.phase }}
+
+    steps:
+      - name: Cancel previous workflow
+        uses: styfle/cancel-workflow-action@0.4.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Set variables
+        id: setvars
+        run: |
+          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
+            echo "::set-output name=gcloud_project::main"
+            echo "::set-output name=phase::staging"
+          fi
+
+          if [[ "${{github.base_ref}}" == "releases" || "${{github.ref}}" == "refs/heads/releases" ]]; then
+            echo "::set-output name=gcloud_project::prod"
+            echo "::set-output name=phase::production"
+          fi
+
   Pipeline:
     runs-on: windows-latest
-
+    needs: init
     env:
-       
-       MY_ENV_VAR: ${{ github.ref == 'refs/heads/features' && 'feature' || github.ref == 'refs/heads/releases' && 'release' || github.ref == 'refs/heads/main' && 'main' || 'hell' }}
-       db_token: db-token-$MY_ENV_VAR 
+       # MY_ENV_VAR: ${{ github.ref == 'refs/heads/features' && 'feature' || github.ref == 'refs/heads/releases' && 'release' || github.ref == 'refs/heads/main' && 'main' || 'hell' }}
+       db_token: db-token-${{needs.init.outputs.gcloud_project}}
          
 
     steps:
