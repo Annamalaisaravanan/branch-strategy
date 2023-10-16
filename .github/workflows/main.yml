@@ -14,17 +14,18 @@ jobs:
       Name: Build
       Enabled: true
 
-  - template: stage-template.yml
-    parameters:
+  Build:
+    uses: Annamalaisaravanan/test-repo/.github/workflows/stage-template.yml@main
+    with:
+      Name: Build
+      Enabled: true
+
+  Test:
+    uses: Annamalaisaravanan/test-repo/.github/workflows/stage-template.yml@main
+    needs: Build
+    with:
       Name: Test
       Enabled: startsWith(github.ref, 'refs/heads/features')
 
-  - template: stage-template.yml
-    parameters:
-      Name: Acceptance
-      Enabled: startsWith(github.ref, 'refs/heads/releases')
 
-  - template: stage-template.yml
-    parameters:
-      Name: Production
-      Enabled: startsWith(github.ref, 'refs/heads/releases')
+ 
