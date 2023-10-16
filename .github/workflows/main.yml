@@ -13,6 +13,9 @@ jobs:
   Pipeline:
     runs-on: windows-latest
 
+    env:
+       db_token: db-token-${branch}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -43,7 +46,7 @@ jobs:
 
       - name: Get Branch Name
         run: |
-          branch_name=${GITHUB_REF#refs/heads/}
+          branch_name= variables['Build.SourceBranch']
           echo "Branch Name: $branch_name"
 
 
