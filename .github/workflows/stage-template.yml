@@ -1,5 +1,5 @@
 jobs:
-  ${{ parameters.Name }}:
+  - name: ${{ parameters.Name }}
   
     runs-on: ubuntu-latest
     steps:
