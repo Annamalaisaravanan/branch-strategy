@@ -14,7 +14,10 @@ jobs:
     runs-on: windows-latest
 
     env:
-       db_token: db-token-${branch}
+       
+       MY_ENV_VAR: ${{ github.ref == 'refs/heads/features' && 'feature' || github.ref == 'refs/heads/releases' && 'release' || github.ref == 'refs/heads/main' && 'main' || 'hell' }}
+       db_token: db-token-${{ MY_ENV_VAR }} 
+         
 
     steps:
       - name: Checkout Repository
@@ -46,8 +49,8 @@ jobs:
 
       - name: Get Branch Name
         run: |
-          branch_name= variables['Build.SourceBranch']
-          echo "Branch Name: $branch_name"
+          
+          echo "my env var: ${{ MY_ENV_VAR }}"
 
 
  
