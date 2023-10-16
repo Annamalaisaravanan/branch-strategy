@@ -75,7 +75,7 @@ jobs:
       - name: Get Branch Name
         run: |
           
-          echo "my env var: ${{ MY_ENV_VAR }}"
+          echo "my env var: ${{ db_token }}"
 
 
  
