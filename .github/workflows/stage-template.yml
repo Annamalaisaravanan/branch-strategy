@@ -4,42 +4,42 @@ parameters:
   default: false
 
 stages:
-- stage: Build
-  displayName: 'Build Stage'
-  condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-  
-  jobs:  
-  - job: Build
-    displayName: 'Build Job'
-    steps:
-    - powershell: Write-Host "Build Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+  - stage: Build
+    displayName: 'Build Stage'
+    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
+    
+    jobs:  
+      - job: Build
+        displayName: 'Build Job'
+        steps:
+            - powershell: Write-Host "Build Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
 
-- stage: Test
-  displayName: 'Test Stage'
-  condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-  
-  jobs:  
-  - job: Test
-    displayName: 'Test Job'
-    steps:
-    - powershell: Write-Host "Test Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+  - stage: Test
+    displayName: 'Test Stage'
+    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
+    
+    jobs:  
+      - job: Test
+        displayName: 'Test Job'
+        steps:
+             - powershell: Write-Host "Test Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
 
-- stage: Acceptance
-  displayName: 'Acceptance Stage'
-  condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-  
-  jobs:  
-  - job: Acceptance
-    displayName: 'Acceptance Job'
-    steps:
-    - powershell: Write-Host "Acceptance Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+  - stage: Acceptance
+    displayName: 'Acceptance Stage'
+    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
+    
+    jobs:  
+      - job: Acceptance
+        displayName: 'Acceptance Job'
+        steps:
+            - powershell: Write-Host "Acceptance Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
 
-- stage: Prod
-  displayName: 'Prod Stage'
-  condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
-  
-  jobs:  
-  - job: Prod
-    displayName: 'Prod Job'
-    steps:
-    - powershell: Write-Host "Prod Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
+  - stage: Prod
+    displayName: 'Prod Stage'
+    condition: and(not(failed()), eq('${{ parameters.Enabled }}', true))
+    
+    jobs:  
+      - job: Prod
+        displayName: 'Prod Job'
+        steps:
+            - powershell: Write-Host "Prod Job is running. Parameter Enabled - '${{ parameters.Enabled }}' "
