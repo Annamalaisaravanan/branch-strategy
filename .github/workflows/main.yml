@@ -11,7 +11,7 @@ on:
 jobs:
 
   Build:
-    uses: stage-template.yml
+    uses: ./stage-template.yml
     with:
       Name: Build
       Enabled: true
