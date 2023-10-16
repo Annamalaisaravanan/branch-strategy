@@ -9,10 +9,6 @@ on:
       - '*'
 
 jobs:
-  - template: stage-template.yml
-    parameters:
-      Name: Build
-      Enabled: true
 
   Build:
     uses: Annamalaisaravanan/test-repo/.github/workflows/stage-template.yml@main
