@@ -41,6 +41,10 @@ jobs:
           # Add your production deployment commands here
           echo "Deploying to Production..."
 
+      - name: Get Branch Name
+        run: |
+          branch_name=${GITHUB_REF#refs/heads/}
+          echo "Branch Name: $branch_name"
 
 
  
