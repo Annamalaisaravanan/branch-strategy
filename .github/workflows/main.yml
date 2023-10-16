@@ -39,7 +39,7 @@ jobs:
   Pipeline:
     runs-on: windows-latest
     environment: prod
-
+    needs: init
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -71,7 +71,7 @@ jobs:
       - name: Get Branch Name
         run: |
           
-          echo "${{ env.DB_HOST }}"
+          echo "${{ DB_HOST }}"
 
 
  
