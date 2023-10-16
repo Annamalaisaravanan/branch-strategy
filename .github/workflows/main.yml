@@ -9,18 +9,56 @@ on:
       - '*'
 
 jobs:
+  build:
+    runs-on: windows-latest
 
-  Build:
-    uses: ./stage-template.yml
-    with:
-      Name: Build
-      Enabled: true
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-  Test:
-    uses: stage-template.yml
-    with:
-      Name: Test
-      Enabled: startsWith(github.ref, 'refs/heads/features')
+      - name: Build
+        if: startsWith(github.ref, 'refs/heads/features')
+        run: |
+          # Add your build commands here
+          echo "Building..."
 
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Test
+        if: startsWith(github.ref, 'refs/heads/features')
+        run: |
+          # Add your test commands here
+          echo "Testing..."
+
+  acceptance:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Acceptance
+        if: startsWith(github.ref, 'refs/heads/releases')
+        run: |
+          # Add your acceptance testing commands here
+          echo "Acceptance testing..."
+
+  production:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Production
+        if: startsWith(github.ref, 'refs/heads/releases')
+        run: |
+          # Add your production deployment commands here
+          echo "Deploying to Production..."
 
  
