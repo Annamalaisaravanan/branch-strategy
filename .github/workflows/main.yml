@@ -1,6 +1,6 @@
 
 on:
-    trigger: 
+    push: 
       - features/* 
       - releases/* 
 
