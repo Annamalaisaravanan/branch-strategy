@@ -1,30 +1,29 @@
-
 on:
-  push: 
+  push:
     branches:
-      - features/* 
-      - releases/* 
+      - features/*
+      - releases/*
 
 pool:
   vmImage: 'windows-latest'
 
 stages:
-    - template: stage-template.yaml  
-      parameters:
-        Name: Build
-        Enabled: True
+  - template: stage-template.yaml
+    parameters:
+      Name: Build
+      Enabled: True
 
-    - template: stage-template.yml  
-      parameters:
-        Name: Test
-        Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/features') }}
+  - template: stage-template.yaml
+    parameters:
+      Name: Test
+      Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/features') }}
 
-    - template: stage-template.yml  
-      parameters:
-        Name: Acceptance
-        Enabled: ${{  startsWith(variables['Build.SourceBranch'], 'refs/heads/releases') }}
+  - template: stage-template.yaml
+    parameters:
+      Name: Acceptance
+      Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/releases') }}
 
-    - template: stage-template.yml  
-      parameters:
-        Name: Production
-        Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/releases')  }}
+  - template: stage-template.yaml
+    parameters:
+      Name: Production
+      Enabled: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/releases') }}
