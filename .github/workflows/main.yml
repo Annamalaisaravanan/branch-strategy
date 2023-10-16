@@ -43,7 +43,7 @@ jobs:
        # MY_ENV_VAR: ${{ github.ref == 'refs/heads/features' && 'feature' || github.ref == 'refs/heads/releases' && 'release' || github.ref == 'refs/heads/main' && 'main' || 'hell' }}
        stage: ${{needs.init.outputs.gcloud_project}}
        token_name: ANNA_+env.stage
-       db_token: secrets[env.token_name]
+       db_token: ${{ secrets[env.token_name] }}
          
 
     steps:
