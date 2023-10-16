@@ -1,10 +1,5 @@
 name: CI/CD
 
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,8 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up PowerShell
-        uses: actions/setup-powershell@v1
+ 
 
       - name: Build
         if: matrix.enabled == 'true'
@@ -40,8 +34,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up PowerShell
-        uses: actions/setup-powershell@v1
+      
 
       - name: Test
         if: matrix.enabled == 'true'
@@ -61,8 +54,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up PowerShell
-        uses: actions/setup-powershell@v1
+     
 
       - name: Acceptance
         if: matrix.enabled == 'true'
@@ -82,8 +74,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up PowerShell
-        uses: actions/setup-powershell@v1
+   
 
       - name: Prod
         if: matrix.enabled == 'true'

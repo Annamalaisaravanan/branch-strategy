@@ -9,32 +9,22 @@ on:
       - '*'
 
 jobs:
-  build:
-    runs-on: windows-latest
+  - template: stage-template.yml
+    parameters:
+      Name: Build
+      Enabled: true
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  - template: stage-template.yml
+    parameters:
+      Name: Test
+      Enabled: startsWith(github.ref, 'refs/heads/features')
 
-      - name: Build
-        run: |
-          # Add your build commands here
-          echo "Building..."
+  - template: stage-template.yml
+    parameters:
+      Name: Acceptance
+      Enabled: startsWith(github.ref, 'refs/heads/releases')
 
-      - name: Test
-        if: startsWith(github.ref, 'refs/heads/features')
-        run: |
-          # Add your test commands here
-          echo "Testing..."
-
-      - name: Acceptance
-        if: startsWith(github.ref, 'refs/heads/releases')
-        run: |
-          # Add your acceptance testing commands here
-          echo "Acceptance testing..."
-
-      - name: Production
-        if: startsWith(github.ref, 'refs/heads/releases')
-        run: |
-          # Add your production deployment commands here
-          echo "Deploying to Production..."
+  - template: stage-template.yml
+    parameters:
+      Name: Production
+      Enabled: startsWith(github.ref, 'refs/heads/releases')
