@@ -1,7 +1,7 @@
 parameters:
-- name: Enabled
-  type: boolean
-  default: false
+  - name: Enabled
+    type: boolean
+    default: false
 
 stages:
   - stage: Build
