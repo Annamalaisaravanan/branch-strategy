@@ -71,7 +71,7 @@ jobs:
       - name: Get Branch Name
         run: |
           
-          echo "$DB_HOST"
+          echo "${{ vars.DB_HOST }}"
 
 
  
