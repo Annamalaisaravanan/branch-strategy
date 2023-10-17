@@ -37,7 +37,7 @@ jobs:
               echo "Testing..."
 
   Staging:
-      if: startsWith(github.ref, 'refs/heads/releases')
+      if: startsWith(github.ref, 'refs/heads/releases') || always()
       runs-on: ubuntu-latest
       needs: Test
       steps:
@@ -50,7 +50,7 @@ jobs:
               echo "Acceptance testing..."
   
   Production:
-      if: startsWith(github.ref, 'refs/heads/releases')
+      if: startsWith(github.ref, 'refs/heads/releases') || always()
       runs-on: ubuntu-latest
       needs: Staging
       steps:
