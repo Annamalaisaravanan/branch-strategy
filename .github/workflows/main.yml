@@ -26,7 +26,7 @@ jobs:
   Test:
       if: startsWith(github.ref, 'refs/heads/features')
       runs-on: ubuntu-latest
-      need: Build
+      needs: Build
       steps:
           - name: Checkout Repository
             uses: actions/checkout@v2
