@@ -30,10 +30,10 @@ jobs:
           - name: Checkout Repository
             uses: actions/checkout@v2
 
-      - name: Test
-        run: |
-          # Add your test commands here
-          echo "Testing..."
+          - name: Test
+            run: |
+              # Add your test commands here
+              echo "Testing..."
 
   Staging:
       if: startsWith(github.ref, 'refs/heads/releases')
@@ -43,10 +43,10 @@ jobs:
           - name: Checkout Repository
             uses: actions/checkout@v2
             
-      - name: Acceptance
-        run: |
-          # Add your acceptance testing commands here
-          echo "Acceptance testing..."
+          - name: Acceptance
+            run: |
+              # Add your acceptance testing commands here
+              echo "Acceptance testing..."
   
   Production:
       if: startsWith(github.ref, 'refs/heads/releases')
@@ -56,11 +56,11 @@ jobs:
           - name: Checkout Repository
             uses: actions/checkout@v2
             
-      - name: Production
-        if: startsWith(github.ref, 'refs/heads/releases')
-        run: |
-          # Add your production deployment commands here
-          echo "Deploying to Production..."
+          - name: Production
+            if: startsWith(github.ref, 'refs/heads/releases')
+            run: |
+              # Add your production deployment commands here
+              echo "Deploying to Production..."
   
 
            
