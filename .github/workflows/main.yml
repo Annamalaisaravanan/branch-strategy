@@ -47,7 +47,7 @@ jobs:
           - name: Acceptance
             run: |
               # Add your acceptance testing commands here
-              echo "Acceptance testing..."
+              python app.py
   
   Production:
       if: always() && startsWith(github.ref, 'refs/heads/releases') 
