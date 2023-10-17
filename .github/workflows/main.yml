@@ -39,6 +39,7 @@ jobs:
   Staging:
       if: always() && startsWith(github.ref, 'refs/heads/releases')
       runs-on: ubuntu-latest
+      needs: Test
       steps:
           - name: Checkout Repository
             uses: actions/checkout@v2
