@@ -7,7 +7,7 @@ def get_current_git_branch():
         current_branch = result.stdout.strip()
         return current_branch
     except subprocess.CalledProcessError:
-        # This will be executed if the 'git branch --show-current' command fails
+        # This will be executed if the 'git branch --show-current' command 
         return None
 
 # Example usage:
